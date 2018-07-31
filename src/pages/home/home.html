@@ -1,14 +1,221 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+
+  <ion-navbar color="secondary">
+    
+      
+      <ion-grid>
+        <ion-row>
+          <ion-col col-10>
+          <ion-searchbar  style="width: 110% !important; margin-right: 45%" [(ngModel)]="city" showCancelButton showSearchButton color="danger" placeholder="Search City"  ></ion-searchbar>
+        </ion-col>
+        <ion-col col-2>
+            <button item-left clear (click)="onRefresh()" style="margin-left: 90%;">
+                <ion-icon  name="refresh"></ion-icon>
+            </button>
+          </ion-col>
+          <!-- <ion-col col-1 style="margin-top: 20px" >
+              <ion-icon name="more">
+                  <ion-select  [(ngModel)]="degrees" (ionChange)="onSelectChange()" >
+                    <ion-option value="C">Celsius</ion-option>
+                    <ion-option value="F">Fahrenheit</ion-option>
+                    <ion-option value="K">Kelvin</ion-option>
+                  </ion-select>
+                </ion-icon>
+              </ion-col> -->
+          </ion-row>
+          </ion-grid>
+          <!-- (ionInput)="onUpdate()" -->
+   
   </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+<ion-content >
+<div style="height: 100%; width: 100%; background-color: white !important;">
+  <div class="oval">
+      <ion-grid *ngIf="we">
+          <ion-item style="width: 50% !important; margin-left: 25%">
+              <ion-label >&#8451;, &#8457; and K</ion-label>
+              <ion-select  [(ngModel)]="degrees" (ionChange)="onSelectChange()" >
+                <ion-option value="C">Celsius</ion-option>
+                <ion-option value="F">Fahrenheit</ion-option>
+                <ion-option value="K">Kelvin</ion-option>
+              </ion-select>
+            </ion-item>
+
+            <h2>{{city}}</h2>
+            
+        <ion-row style="text-align: center;"> 
+          <ion-col >
+              <img style="height: 150px; width: 250px;"  src={{weatherState}}>
+          </ion-col>
+          <ion-col >
+            <p *ngIf="sa" ><b style="font-size: 75px;" >{{weatherInfo?.main.temp | number : '2.0-0'}}K</b></p>
+            <p *ngIf="all" ><b style="font-size: 75px;" >{{CtoF | number : '2.0-0'}}&#8451;</b></p>
+            <p *ngIf="faran" ><b style="font-size: 75px;" >{{FtoC | number : '2.0-0'}}&#8457;</b></p>
+            <p *ngIf="kelvin" > <b style="font-size: 75px;" >{{K | number : '2.0-0'}}K</b></p>
+            <br>
+           <b> {{weatherInfo?.weather[0].description}}</b>
+      </ion-col>
+        </ion-row>
+      
+        <br>
+        <ion-row > 
+            <ion-col  >
+               <p *ngIf="sa" ><b>Low Temp:</b> {{weatherInfo?.main.temp_min | number : '2.0-0'}} K</p>
+               <p *ngIf="all" ><b>Low Temp:</b>{{CtoF | number : '2.0-0'}}&#8451;</p>
+               <p *ngIf="faran" ><b>Low Temp:</b> {{FtoC | number : '2.0-0'}}&#8457;</p>
+               <p *ngIf="kelvin" ><b>Low Temp:</b>{{K | number : '2.0-0'}}K</p>
+
+              </ion-col>
+            
+          <ion-col >
+              <p *ngIf="sa" ><b>High Temp:</b> {{weatherInfo?.main.temp_max | number : '2.0-0'}} K</p>
+              <p *ngIf="all" ><b>High Temp:</b> {{CtoF | number : '2.0-0'}}&#8451;</p>
+              <p *ngIf="faran" ><b>High Temp:</b> {{FtoC | number : '2.0-0'}}&#8457;</p>
+              <p *ngIf="kelvin" ><b>High Temp:</b>{{K | number : '2.0-0'}}K</p>
+
+            </ion-col>
+          </ion-row>
+          <ion-grid *ngIf="we">
+              <ion-row>
+                  <ion-col>
+                    Humidity:
+                  </ion-col>
+                  <ion-col>
+                      <img style="height: 50px; width: 50px;" src = "../../assets/imgs/download (1).png">
+                    </ion-col>
+                    <ion-col>
+                        {{weatherInfo?.main.humidity}}
+                      </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                      Pressure :
+                    </ion-col>
+                    <ion-col>
+                        <img style="height: 30px; width: 50px;" src = "../../assets/imgs/download (2).png">
+                      </ion-col>
+                      <ion-col>
+                          {{weatherInfo?.main.pressure}}
+                        </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col>
+                       Wind Speed
+                      </ion-col>
+                      <ion-col>
+                          <img style="height: 30px; width: 50px;" src = "../../assets/imgs/images.jpg">
+                        </ion-col>
+                        <ion-col>
+                            {{weatherInfo?.wind.speed}} 
+                          </ion-col>
+                    </ion-row>
+          </ion-grid>
+          <ion-row style="text-align: center;"> 
+            <ion-col >
+                 <!-- <button ion-button (click)="onUpdate()">Submit</button> -->
+            </ion-col>
+          </ion-row>
+      </ion-grid>
+      <button style="margin-left: 90px; width: 200px;" ion-button (click)="onUpdate()">Search</button>
+  </div>
+</div>
+
+  <!-- <ion-grid *ngIf="we" >
+      <ion-item>
+          <ion-label>Celsius and Fahrenheit</ion-label>
+          <ion-select placeholder="&#8451; to &#8457; " [(ngModel)]="degrees" (ionChange)="onSelectChange()" >
+            <ion-option value="C">Celsius</ion-option>
+            <ion-option value="F">Fahrenheit</ion-option>
+          </ion-select>
+        </ion-item>
+    
+    <ion-row style="text-align: center;"> 
+        <ion-col >
+            <img style="height: 150px; width: 250px;"  src={{weatherState}}>
+        </ion-col>
+      </ion-row>
+      <ion-row style="text-align: center;"  > 
+          <ion-col >
+                <p *ngIf="sa" ><b style="font-size: 75px;" >{{weatherInfo?.main.temp | number : '2.0-0'}}K</b></p>
+                <p *ngIf="all" ><b style="font-size: 75px;" >{{CtoF | number : '2.0-0'}}&#8451;</b></p>
+                <p *ngIf="faran" ><b style="font-size: 75px;" >{{FtoC | number : '2.0-0'}}&#8457;</b></p>
+                <br>
+                {{weatherInfo?.weather[0].description}}
+          </ion-col>
+        </ion-row>
+        <br>
+        <br>
+        <br>
+        <ion-row style="text-align: center; " > 
+            <ion-col col-4 >
+               <b>Low Temp:</b> {{weatherInfo?.main.temp_min  -273.15 | number : '2.0-0'}} &#8451;
+            </ion-col>
+            <ion-col col-4 >
+                
+          </ion-col>
+          <ion-col col-4 >
+            <b>High Temp:</b>{{weatherInfo?.main.temp_max  -273.15 | number : '2.0-0'}} &#8451;
+        </ion-col>
+          </ion-row>
+
+  </ion-grid>
+
+<ion-grid *ngIf="we">
+    <ion-row>
+        <ion-col>
+          Humidity:
+        </ion-col>
+        <ion-col>
+            <img style="height: 50px; width: 50px;" src = "../../assets/imgs/download (1).png">
+          </ion-col>
+          <ion-col>
+              {{weatherInfo?.main.humidity}}
+            </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+            Pressure :
+          </ion-col>
+          <ion-col>
+              <img style="height: 30px; width: 50px;" src = "../../assets/imgs/download (2).png">
+            </ion-col>
+            <ion-col>
+                {{weatherInfo?.main.pressure}}
+              </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+             Wind Speed
+            </ion-col>
+            <ion-col>
+                <img style="height: 30px; width: 50px;" src = "../../assets/imgs/images.jpg">
+              </ion-col>
+              <ion-col>
+                  {{weatherInfo?.wind.speed}} 
+                </ion-col>
+          </ion-row>
+</ion-grid>
+<ion-grid>
+
+  <ion-card>
+    <img src= "../../assets/imgs/download.jpg">
+  </ion-card>
+    
+    <ion-row style="text-align: center;"> 
+        <ion-col >
+             <button ion-button (click)="onUpdate()">Submit</button>
+        </ion-col>
+      </ion-row>
+</ion-grid> -->
+
+
 </ion-content>
